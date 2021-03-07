@@ -1,0 +1,39 @@
+﻿@page
+@using Domain
+@model WebApp.Pages.Rally.OutOfStockReport
+
+@{
+    ViewData["Title"] = $"Out of Stock Report";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Currently In Stock</th>
+            <th>Optimal Stock Stock</th>
+            <th class ="text-danger">Missing Stock Stock</th>
+            <th>Restock Price</th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>@item.Category.Name</td>
+            <td>@item.ItemName.Name</td>
+            <td>@item.Location.Name</td>
+            <td>@item.CurrentQuantity</td>
+            <td>@item.OptimalQuantity</td>
+            <td class ="text-danger">@(item.OptimalQuantity - item.CurrentQuantity)</td>
+            <td>@((item.OptimalQuantity - item.CurrentQuantity) * item.Price) €</td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a asp-page-handler="GoToRally" asp-route-rallyId="@Model.RallyId">Back to Rally</a>
+</div>

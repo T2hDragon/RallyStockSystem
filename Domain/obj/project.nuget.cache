@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FzYbtXZatRL+VOVlVaOwyzB7KsjT3U7+ElXTdSZK2J8D33F3g+aGkITe9h27Rb0n9yCdlzmmQVkps2d0XJq4+g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Karmo\\Desktop\\C#\\C# gameDev\\icd0008-2020f\\WebAppExam01\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Karmo\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,37 @@
+@page
+@model WebApp.Pages_Jobs.IndexModel
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<h1>Jobs</h1>
+
+<p>
+    <a asp-page="Create" asp-route-rallyId="@Model.RallyId">Add New Job</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Job Name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Job) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobName.Name)
+            </td>
+            <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-rallyId="@Model.RallyId">Look into</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id" asp-route-rallyId="@Model.RallyId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div>
+    <a asp-page-handler="GoToRally" asp-route-rallyId="@Model.RallyId">Back to Rally</a>
+</div>

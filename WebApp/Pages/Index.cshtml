@@ -1,0 +1,43 @@
+@page
+@model WebApp.Pages_Rallies.IndexModel
+
+@{
+    ViewData["Title"] = "Rallies";
+}
+
+<h1>Rallies</h1>
+
+<p>
+    <a asp-page="./Rallies/Create">Add New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rally[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rally[0].Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Rally) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                <a asp-page-handler="LoadRally" asp-route-rallyId="@item.Id">Load</a> |
+                <a asp-page="./Rallies/Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Rallies/Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Rallies/Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

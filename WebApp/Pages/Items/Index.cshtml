@@ -1,0 +1,148 @@
+@page
+@model WebApp.Pages_Items.IndexModel
+
+@{
+    ViewData["Title"] = "Items";
+}
+
+<h1>Items</h1>
+
+<p>
+    <a asp-page="Create" asp-route-rallyId="@Model.RallyId">Add New Item</a>
+</p>
+<br>
+<div class="row">
+    <div class="col-2 text-center">
+        <form method="post">
+            <input asp-page-handler="ModifyNamePart" type="submit" style="width: available" class="btn btn-primary" asp-route-exclusive="false" asp-route-add="true" asp-route-rallyId="@Model.RallyId" asp-route-filter="@Model.Filter" asp-route-categoryId="@Model.CategoryId"  value="Add Inclusive Search"/>
+            <input asp-page-handler="ModifyNamePart" type="submit" class="btn btn-primary" asp-route-exclusive="true" asp-route-add="true" asp-route-rallyId="@Model.RallyId" asp-route-filter="@Model.Filter" asp-route-categoryId="@Model.CategoryId"  value="Add Exclusive Search"/>
+            @if (Model.InclusiveItemNameParts.Count > 0)
+            {
+                <div class="table">
+                    @for (var i = 0; i < Model.InclusiveItemNameParts.Count; i++)
+                    {
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                @Html.LabelFor(model => model.InclusiveItemNameParts[i], $"Inclusive item {i + 1}", new {@class = "form-label"})
+                                <input asp-page-handler="ModifyNamePart" type="submit" asp-route-exclusive="false" asp-route-add="false" class="btn btn-danger btn-sm" asp-route-index="@i" asp-route-oppositeMax="@Model.ExclusiveItemNameParts.Count" asp-route-rallyId="@Model.RallyId" 
+                                       asp-route-filter="@Model.Filter" asp-route-categoryId="@Model.CategoryId" value="-"/>
+                                @Html.TextBoxFor(model => model.InclusiveItemNameParts[i], new {required = "required", minLength = 1, maxlength = 25, @class = "form-control", placeholder = "Inclusive item Name"})
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+
+            @if (Model.ExclusiveItemNameParts.Count > 0)
+            {
+                <div class="table">
+                    @for (var i = 0; i < Model.ExclusiveItemNameParts.Count; i++)
+                    {
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                @Html.LabelFor(model => model.ExclusiveItemNameParts[i], $"Exclusive item {i + 1}", new {@class = "form-label"})
+                                <input asp-page-handler="ModifyNamePart" type="submit" asp-route-exclusive="true" asp-route-add="false" class="btn btn-danger btn-sm" asp-route-index="@i" asp-route-oppositeMax="@Model.InclusiveItemNameParts.Count" asp-route-rallyId="@Model.RallyId"
+                                       asp-route-filter="@Model.Filter" asp-route-categoryId="@Model.CategoryId" value="-"/>
+                                @Html.TextBoxFor(model => model.ExclusiveItemNameParts[i], new {required = "required", minLength = 1, maxlength = 25, @class = "form-control", placeholder = "Exclusive item Name"})
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <br>
+            <br>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MinQuantity, "Minimum quantity", new {@class = "form-label"})
+                @Html.TextBoxFor(model => model.MinQuantity, new {Range = (0, 70000), @class = "form-control", value = Model.MinQuantity})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxQuantity, "Maximum quantity", new {@class = "form-label"})
+                @Html.TextBoxFor(model => model.MaxQuantity, new {Range = (0, 70000), @class = "form-control", value = Model.MaxQuantity})
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Category</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+
+
+            <input asp-page-handler="Filter" type="submit" class="btn btn-primary" asp-route-rallyId="@Model.RallyId" value="Filter"/>
+        </form>
+    </div>
+    <div class="col">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Item Name
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item[0].Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item[0].Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item[0].Price)
+                </th>
+                <th>Current Quantity</th>
+                <th>Optimal Quantity</th>
+                <th>Add To Stock</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Item)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentQuantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OptimalQuantity)
+                    </td>
+                    <td>
+
+                        <form method="post" asp-page-handler="AddToStock" asp-route-itemId="@item.Id" asp-route-rallyId="@Model.RallyId" class="form-inline">
+                            <div class="form-group">
+                                <input asp-for="ItemAddAmount" id="AddAmountInput" required="required" style="width:6.5rem" class="form-control col-s">
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-sm" value="+">
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-rallyId="@Model.RallyId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id" asp-route-rallyId="@Model.RallyId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id" asp-route-rallyId="@Model.RallyId">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<div>
+    <a asp-page-handler="GoToRally" asp-route-rallyId="@Model.RallyId">Back to Rally</a>
+</div>

@@ -1,0 +1,56 @@
+@page
+@model WebApp.Pages_Items.CreateModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add Item</h1>
+
+<h4>Item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Item.ItemNameId" class="control-label">Item Name</label>
+                <select asp-for="Item.ItemNameId" class ="form-control" asp-items="ViewBag.ItemNameId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.CategoryId" class="control-label">Category</label>
+                <select asp-for="Item.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.LocationId" class="control-label">Location</label>
+                <select asp-for="Item.LocationId" class ="form-control" asp-items="ViewBag.LocationId"></select>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Item.CurrentQuantity" class="control-label">Current Quantity</label>
+                <input asp-for="Item.CurrentQuantity" class="form-control"  value="1"/>
+                <span asp-validation-for="Item.CurrentQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.OptimalQuantity" class="control-label">Optimal Quantity</label>
+                <input asp-for="Item.OptimalQuantity" class="form-control" value="1"/>
+                <span asp-validation-for="Item.OptimalQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" value="0,00"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" asp-route-rallyId="@Model.RallyId">Back to Items</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

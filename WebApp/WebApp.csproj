@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DAL\DAL.csproj" />
+      <ProjectReference Include="..\ServiceBrain\ServiceBrain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Games\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Games\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Games\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Games\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Games\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\GameStates\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\GameStates\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\GameStates\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\GameStates\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\GameStates\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Items\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Items\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Items\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Items\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Items\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\JobItems\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\JobItems\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\JobItems\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\JobItems\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\JobItems\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\JobItems\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\JobItems\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\JobItems\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\JobItems\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\JobItems\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\Items\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\Items\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\Items\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\Items\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Jobs\Items\Index.cshtml" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,76 @@
+@page
+@model WebApp.Pages_Jobs.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Job.Id" />
+            <div class="form-group">
+                <select asp-for="Job.JobNameId" class="form-control" asp-items="ViewBag.JobNameId"></select>
+                <span asp-validation-for="Job.JobNameId" class="text-danger"></span>
+                <input type="submit" value="Update Name" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div><hr />
+
+<h1>Items</h1>
+
+<p>
+    <a asp-page="./Items/Create" asp-route-jobId="@Model.Job.Id" asp-route-rallyId="@Model.RallyId">Add Item</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Item Name
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Item Quantity
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var jobItem in Model.JobItem) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => jobItem.Item.ItemName.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => jobItem.Item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => jobItem.Item.Location.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => jobItem.ItemQuantity)
+            </td>
+            
+            <td>
+                <a asp-page-handler="RemoveItem" asp-route-jobItemId="@jobItem.Id" asp-route-jobId="@Model.Job.Id" asp-route-rallyId="@Model.RallyId">Remove</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+<div>
+    <a asp-page="./Index" asp-route-rallyId="@Model.RallyId">Back to Jobs</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,73 @@
+﻿@page
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using Domain
+@model WebApp.Pages.Rally.ServicesReport
+
+@{
+    ViewData["Title"] = $"Service Report";
+}
+
+<h1><u>@Model.Name</u></h1>
+<h2 class="text-secondary">@Model.Location</h2>
+<br>
+<br>
+<br>
+<h1>ReportSummary</h1>
+<div class ="text-danger">Total cost: @Model.TotalCost €</div>
+<table class="table table-bordered">
+    <tr>
+        <th>Material Category</th>
+        <th>Material Name</th>
+        <th>Material Location</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+    @foreach ((Item item, int quantity) in Model.AllMaterials)
+    {
+        <tr>
+            <td>@item.Category.Name</td>
+            <td>@item.ItemName.Name</td>
+            <td>@item.Location.Name</td>
+            <td>@quantity</td>
+            <td>@(quantity * item.Price) €</td>
+        </tr>
+    }
+</table>
+
+<br>
+<h3>Jobs</h3>
+<br>
+<br>
+
+@foreach ((Job job, decimal cost) in Model.JobCost)
+{
+    <div>Job: @job.JobName.Name</div>
+    <div>Times used: @Model.JobsCount[job]</div>
+    <div>Total Job Cost: <span class ="text-danger">@cost €</span></div>
+    <table class="table table-bordered">
+        <tr>
+            <th>Material Category</th>
+            <th>Material Name</th>
+            <th>Material Location</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        @foreach ((Item item, int quantity) in Model.JobMaterials[job])
+        {
+            <tr>
+                <td>@item.Category.Name</td>
+                <td>@item.ItemName.Name</td>
+                <td>@item.Location.Name</td>
+                <td>@quantity</td>
+                <td>@(quantity * item.Price) €</td>
+            </tr>
+        }
+    </table>
+    <br>
+}
+
+
+
+<div>
+    <a asp-page-handler="GoToRally" asp-route-rallyId="@Model.RallyId">Back to Rally</a>
+</div>
